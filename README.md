@@ -69,8 +69,28 @@ https://github.com/xiaocao666tzh/EmbyBot/blob/main/embybot.sql.gz
 前台启动机器人        python3 embybot.py
 后台启动机器人        nohup python3 embybot.py > botlog.log 2>&1 &
 ## 添加进程守护（可选，但强烈建议）
-在 /usr/lib/systemd/system 下创建如下文件  
-https://github.com/xiaocao666tzh/EmbyBot/blob/main/embybot.service  
+```
+cat > /etc/systemd/system/qbt.service <<EOF
+[Unit]
+Description=Embybot
+After=network.target
+After=mysqld.service
+Wants=network.target
+
+[Service]
+WorkingDirectory=/PathToEmbybot
+ExecStart=python3 /PathToEmbybot/embybot.py
+Restart=on-abnormal
+RestartSec=5s
+KillMode=mixed
+
+StandardOutput=null
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
 PathToEmbybot 改为文件路径  
 执行命令  
 `systemctl daemon-reload`  
