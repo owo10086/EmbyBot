@@ -70,7 +70,7 @@ https://github.com/xiaocao666tzh/EmbyBot/blob/main/embybot.sql.gz
 后台启动机器人        nohup python3 embybot.py > botlog.log 2>&1 &
 ## 添加进程守护（可选，但强烈建议）
 ```
-cat > /etc/systemd/system/qbt.service <<EOF
+cat > /etc/systemd/system/embybot.service <<EOF
 [Unit]
 Description=Embybot
 After=network.target
